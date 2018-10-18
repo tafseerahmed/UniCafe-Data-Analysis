@@ -1,0 +1,4 @@
+- translate dataset (columns, days of week, comments) to english
+- fix poor formatting of data (3,5 instead of 3.5, extra quote marks everywhere)
+- imputation of kitchen waste (use average of other data)
+- combining of exactum and chemicum data
