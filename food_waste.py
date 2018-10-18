@@ -36,17 +36,17 @@ mean_twpc = waste_data.twpc.mean()
 mean_weekday_cbpc = waste_data.groupby(['weekday'])['cbpc'].mean()[['mon', 'tue', 'wed', 'thu', 'fri']]
 mean_weekday_twpc = waste_data.groupby(['weekday'])['twpc'].mean()[['mon', 'tue', 'wed', 'thu', 'fri']]
 
-# mean_weekday_cbpc.plot(x='weekday', y='cbpc', title='Customer biowaste per customer on weekdays (g)', grid=True) # shows much less waste on Monday
-# plt.show()
-# mean_weekday_twpc.plot(x='weekday', y='tbpc', title='Total waste per customer on weekdays (g)', grid=True) # shows much more waste on Friday
-# plt.show()
+mean_weekday_cbpc.plot(x='weekday', y='cbpc', title='Customer biowaste per customer on weekdays (g)', grid=True) # shows much less waste on Monday
+plt.show()
+mean_weekday_twpc.plot(x='weekday', y='tbpc', title='Total waste per customer on weekdays (g)', grid=True) # shows much more waste on Friday
+plt.show()
 
 ## Customer waste proportion
 waste_data['prop'] = waste_data.cbpc/waste_data.twpc
 mean_weekday_prop = waste_data.groupby(['weekday'])['prop'].mean()[['mon', 'tue', 'wed', 'thu', 'fri']]
-# mean_weekday_prop.plot(x='weekday', y='prop', title='Proportion of customer biowaste to total waste on weekdays', grid=True) # lowest on Monday, Friday and highest on Thursday
-# plt.ylim(ymin=0.3)
-# plt.show()
+mean_weekday_prop.plot(x='weekday', y='prop', title='Proportion of customer biowaste to total waste on weekdays', grid=True) # lowest on Monday, Friday and highest on Thursday
+plt.ylim(ymin=0.3)
+plt.show()
 
 ## Aggregate measurements
 mean_weekday_num_customers = waste_data.groupby(['weekday'])['num_customers'].mean()[['mon', 'tue', 'wed', 'thu', 'fri']]
@@ -66,12 +66,8 @@ waste_data['date'] = pd.to_datetime(waste_data.date)
 
 combined = pd.merge(waste_data, weather_data)
 
-b, m = polyfit(combined['precipitation_intensity'], combined['cbpc'], 1)
-# plt.plot(combined['precipitation_intensity'], combined['cbpc'], '.')
-# plt.plot(combined['precipitation_intensity'], b + m * combined['precipitation_intensity'], '-')
-# plt.show()
+combined.plot(x='precipitation_intensity', y='cbpc', title='Precipitation vs customer biowaste (g)', kind='scatter', grid=True)
+plt.show()
 
-b, m = polyfit(combined['air_temperature'], combined['cbpc'], 1)
-# plt.plot(combined['air_temperature'], combined['cbpc'], '.')
-# plt.plot(combined['air_temperature'], b + m * combined['air_temperature'], '-')
-# plt.show()
+combined.plot(x='air_temperature', y='cbpc', title='Temperature vs customer biowaste (g)', kind='scatter', grid=True)
+plt.show()
